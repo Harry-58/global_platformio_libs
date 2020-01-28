@@ -8,38 +8,29 @@
 *      Wenn Meldungen ausgegeben werden sollen, vor dem include-Befehl
 *        #define DEBUG_EIN
 *      schreiben
+*  
+*     Standardmässig werden die Debugmeldungen auf "Serial" ausgegeben*
+*     Durch setzen von DEBUG_ZIEL kann ein anderes Ziel angegeben werden  z.B. #define DEBUG_ZIEL Serial3
+*
  */
 
    #ifdef DEBUG_EIN
       #include <Streaming.h>
-      extern char myDebugBuffer[255];
-      /*
-      void DEBUG_SERIAL(char *format, ...)    //https://www.utopiamechanicus.com/article/sprintf-arduino/
-      {
-         va_list args;
-         va_start (args,format);
-         vsnprintf(myDebugBuffer,sizeof(myDebugBuffer),format,args);
-         va_end (args);
-         myDebugBuffer[sizeof(myDebugBuffer)/sizeof(myDebugBuffer[0])-1]='\0';
-         Serial.print(myDebugBuffer);
-      }
-     */
-         //https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html
-         //http://www.cplusplus.com/reference/cstdio/printf/
-         //https://docs.microsoft.com/de-de/cpp/c-runtime-library/format-specification-syntax-printf-and-wprintf-functions?view=vs-2019
-      #define DEBUG_SERIAL(...) {  snprintf(myDebugBuffer,sizeof(myDebugBuffer),__VA_ARGS__); Serial.print(myDebugBuffer);}
-      //#define DEBUG_SERIAL2(fmt, ...) {  snprintf(myDebugBuffer,255,fmt, ##__VA_ARGS__); Serial.print(myDebugBuffer);}
-
-      #define DEBUG(d) {d;}
-      #define DEBUG_PRINT(x)  Serial.print(x)
-      #define DEBUG_PRINTLN(x) Serial.println(x)
-      #define DEBUG_INFO(x)  {Serial <<"**** F:"<<__FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl;}    // Funtionsname, Zeilennummer und Parameter anzeigen
-      #define DEBUG_VAR(X) Serial << (#X) << "=" << ">" <<(X) << "<" << endl;                                           // Variablenname und Wert anzeigen
+      #ifndef DEBUG_ZIEL
+         #define DEBUG_ZIEL Serial   // Standardziel für Debugmeldungen
+      #endif
+   
+      #define DEBUG(d) {d;}                                                                                   // ganzen Block nur bei DEBUG_EIN ausführen
+      #define DEBUG_PRINT(x)    DEBUG_ZIEL.print(x)                                                           
+      #define DEBUG_PRINTLN(x)  DEBUG_ZIEL.println(x)
+	  #define DEBUG_PRINTF(...) DEBUG_ZIEL.printf( __VA_ARGS__ )
+      #define DEBUG_INFO(x)     DEBUG_ZIEL <<"**** F:"<<__FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl   // Funtionsname, Zeilennummer und Parameter anzeigen
+      #define DEBUG_VAR(X)      DEBUG_ZIEL << (#X)  << " >" <<(X) << "<" << endl                              // Variablenname und Wert anzeigen
    #else
-      #define DEBUG_SERIAL(...) {}
       #define DEBUG(d)  {}
       #define DEBUG_PRINT(x)
       #define DEBUG_PRINTLN(x)
+      #define DEBUG_PRINTF(x)
       #define DEBUG_INFO(x)
       #define DEBUG_VAR(X)
    #endif

@@ -1,3 +1,3 @@
-﻿#include <myDebug.h>
+﻿//#include <myDebug.h>
 
-char myDebugBuffer[255];
+//char myDebugBuffer[255];
