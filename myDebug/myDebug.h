@@ -1,4 +1,4 @@
-  #if defined(__AVR__)
+﻿  #if defined(__AVR__)
       #define _MYDEBUGPRINTFBUFFER_SIZE  128
   #else
       #define _MYDEBUGPRINTFBUFFER_SIZE  1
@@ -42,7 +42,7 @@
       #define DEBUG(d)  {}
       #define DEBUG_PRINT(x)
       #define DEBUG_PRINTLN(x)
-      #define DEBUG_PRINTF(x)
+      #define DEBUG_PRINTF(...)
       #define DEBUG_INFO(x)
       #define DEBUG_VAR(x)
       #define DEBUG_SHOW(x)
