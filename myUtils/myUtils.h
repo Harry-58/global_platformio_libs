@@ -7,11 +7,16 @@
 
 String split(String s, char separator, int index);
 
-void removeMultiBlanks(char* str); // Mehrfache Leerzeichen entfernen
+void removeMultiBlanks(char* str);         // Mehrfache Leerzeichen entfernen
 
-void removeSpace(char* str); // alle Leerzeichen entfernen
+void removeChar(char* str, char ch=' ');   // alle Zeichen ch entfernen
+inline void removeSpace(char* str) { removeChar(str, ' '); }        // alle Leerzeichen entfernen
 
-char *removeSpaces(char *str);
+char* removeChar(char* str_in, char* str_out, char ch=' ');    // alle Zeichen ch entfernen
+inline char* removeSpace(char* str_in, char* str_out) { return removeChar(str_in, str_out, ' '); }        // alle Leerzeichen entfernen
+
+
+char *XremoveSpaces(char *str);
 
 char* LTrim(char* szX);
 

@@ -1,8 +1,8 @@
-﻿
+
 #include <myUtils.h>
 
 String split(String s, char separator, int index) {  // https://arduino.stackexchange.com/questions/1013/how-do-i-split-an-incoming-string
-  int separatorCnt = 0;                              // was fï¿½r Stringarray https://stackoverflow.com/questions/9072320/split-string-into-string-array
+  int separatorCnt = 0;                              // was für Stringarray https://stackoverflow.com/questions/9072320/split-string-into-string-array
   int rFromIndex   = 0;                              //  http://www.c-howto.de/tutorial/strings-zeichenketten/string-funktionen/string-zerteilen/
   int rToIndex     = -1;                             // http://ediy.com.my/tutorials/item/142-split-comma-or-any-other-character-delimited-string-into-an-array
   while (index >= separatorCnt) {
@@ -17,32 +17,63 @@ String split(String s, char separator, int index) {  // https://arduino.stackexc
   return "";  // nicht gefunden
 }
 
+
 // Mehrfache Leerzeichen entfernen
 void removeMultiBlanks(char* str) {
   int i = 0, j = 0;
   while (str[i])  // bis zum Stringende =  \0  --> false
   {
-    while (str[i] == ' ' && str[i + 1] == ' ') i++;  // mehrfache Leerzeichen ï¿½berspringen
+    while (str[i] == ' ' && str[i + 1] == ' ') i++;  // mehrfache Leerzeichen überspringen (entfernen)
     str[j++] = str[i++];
   }
   str[j] = '\0';
 }
 
+
+// alle Zeichen  ch entfernen
+void removeChar(char* str, char ch) {
+  int i = 0, j = 0;
+  while (str[i])  // bis zum Stringende =  \0  --> false
+  {
+    while (str[i] == ch) i++;  // Zeichen überspringen (entfernen)
+    str[j++] = str[i++];
+  }
+  str[j] = '\0';
+}
+//inline void removeSpace(char* str) { removeChar(str, ' '); }    // im .h
+
+
 // alle Leerzeichen entfernen
-void removeSpace(char* str) {
+// char x[20];
+// char *y;
+// y = removeSpaces(test,x);
+char* removeChar(char* str_in, char* str_out, char ch) {
+  int i = 0, j = 0;
+  while (str_in[i]) {
+    if (str_in[i] != ' ') str_out[j++] = str_in[i];
+    i++;
+  }
+  str_out[j] = '\0';
+  return str_out;
+}
+//inline char* removeSpace(char* str_in, char* str_out) { return removeChar(str_in, str_out, ' '); }  // im .h
+
+
+// alle Leerzeichen entfernen
+void XremoveSpace(char* str) {
   char* str2 = str;
   do {
     if (*str2 != ' ') *str++ = *str2;
   } while (*str2++);
+  *str = '\0';
 }
 
-void ltrim(char* str) {
-  if (' ' == str[0])
-    while (' ' == (++str)[0])
-      ;
-}
 
-char* removeSpaces(char* str) {
+
+// char x[20];
+// char *y = x;
+// y = removeSpaces(test);
+char* XremoveSpaces(char* str) {
   int i = 0, j = 0;
   while (str[i]) {
     if (str[i] != ' ') str[j++] = str[i];
@@ -50,6 +81,12 @@ char* removeSpaces(char* str) {
   }
   str[j] = '\0';
   return str;
+}
+
+void ltrim(char* str) {
+  if (' ' == str[0])
+    while (' ' == (++str)[0])
+      ;
 }
 
 char* LTrim(char* szX) {
@@ -112,7 +149,7 @@ String urldecode(String str) {
   char c;
   char code0;
   char code1;
-  for (int i = 0; i < str.length(); i++) {
+  for (size_t i = 0; i < str.length(); i++) {
     c = str.charAt(i);
     if (c == '+') {
       encodedString += ' ';
@@ -139,7 +176,7 @@ String urlencode(String str) {
   char code0;
   char code1;
 
-  for (int i = 0; i < str.length(); i++) {
+  for (size_t i = 0; i < str.length(); i++) {
     c = str.charAt(i);
     if (c == ' ') {
       encodedString += '+';

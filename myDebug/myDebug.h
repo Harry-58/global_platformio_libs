@@ -1,4 +1,4 @@
-﻿  #if defined(__AVR__)
+  #if defined(__AVR__)
       #define _MYDEBUGPRINTFBUFFER_SIZE  128
   #else
       #define _MYDEBUGPRINTFBUFFER_SIZE  1
@@ -30,6 +30,7 @@
       #define DEBUG_PRINT(x)    DEBUG_ZIEL.print(x)
       #define DEBUG_PRINTLN(x)  DEBUG_ZIEL.println(x)
       #if defined(__AVR__)       // Arduino hat kein printf deshalb über snprintf mit Buffer
+                                 // https://www.e-tinkers.com/2020/01/do-you-know-arduino-sprintf-and-floating-point/
         extern char myDebugBuffer[_MYDEBUGPRINTFBUFFER_SIZE];
         #define DEBUG_PRINTF(...) {  snprintf(myDebugBuffer,sizeof(myDebugBuffer),__VA_ARGS__); DEBUG_ZIEL.print(myDebugBuffer);}
       #else
