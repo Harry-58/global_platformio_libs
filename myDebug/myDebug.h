@@ -39,6 +39,16 @@
       #define DEBUG_INFO(x)     DEBUG_ZIEL <<"**** F:"<<__FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl   // Funtionsname, Zeilennummer und Parameter anzeigen
       #define DEBUG_VAR(x)      DEBUG_ZIEL << (#x) << " >" <<(x) << "<" << endl                               // Variablenname und Wert anzeigen
       #define DEBUG_SHOW(x)                   (#x) << " >" <<(x) << "<"                                       // Variablenname und Wert innerhalb anderen (Debug)-Prints anzuzeigen
+      #ifndef ESP32
+        #define ARDUHAL_LOG_COLOR_E
+        #define ARDUHAL_LOG_COLOR_W
+        #define ARDUHAL_LOG_COLOR_I
+        #define ARDUHAL_LOG_COLOR_D
+        #define ARDUHAL_LOG_COLOR_V
+        #define ARDUHAL_LOG_RESET_COLOR
+        #define ARDUHAL_LOG_FORMAT(letter, format)  ARDUHAL_LOG_COLOR_ ## letter "[" #letter "][%s:%u] %s(): " format ARDUHAL_LOG_RESET_COLOR "\r\n", __FILE__, __LINE__, __FUNCTION__
+      #endif
+      #define LOG_E(format, ...)DEBUG_PRINTF(ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
    #else
       #define DEBUG(d)  {}
       #define DEBUG_PRINT(x)
@@ -47,6 +57,7 @@
       #define DEBUG_INFO(x)
       #define DEBUG_VAR(x)
       #define DEBUG_SHOW(x)
+      #define LOG_E(format, ...)
    #endif
 
 #endif
