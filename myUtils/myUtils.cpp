@@ -1,4 +1,5 @@
 
+#include <limits.h>
 #include <myUtils.h>
 
 String split(String s, char separator, int index) {  // https://arduino.stackexchange.com/questions/1013/how-do-i-split-an-incoming-string
@@ -17,7 +18,6 @@ String split(String s, char separator, int index) {  // https://arduino.stackexc
   return "";  // nicht gefunden
 }
 
-
 // Mehrfache Leerzeichen entfernen
 void removeMultiBlanks(char* str) {
   int i = 0, j = 0;
@@ -29,7 +29,6 @@ void removeMultiBlanks(char* str) {
   str[j] = '\0';
 }
 
-
 // alle Zeichen  ch entfernen
 void removeChar(char* str, char ch) {
   int i = 0, j = 0;
@@ -40,8 +39,7 @@ void removeChar(char* str, char ch) {
   }
   str[j] = '\0';
 }
-//inline void removeSpace(char* str) { removeChar(str, ' '); }    // im .h
-
+// inline void removeSpace(char* str) { removeChar(str, ' '); }    // im .h
 
 // alle Leerzeichen entfernen
 // char x[20];
@@ -56,8 +54,7 @@ char* removeChar(char* str_in, char* str_out, char ch) {
   str_out[j] = '\0';
   return str_out;
 }
-//inline char* removeSpace(char* str_in, char* str_out) { return removeChar(str_in, str_out, ' '); }  // im .h
-
+// inline char* removeSpace(char* str_in, char* str_out) { return removeChar(str_in, str_out, ' '); }  // im .h
 
 // alle Leerzeichen entfernen
 void XremoveSpace(char* str) {
@@ -67,8 +64,6 @@ void XremoveSpace(char* str) {
   } while (*str2++);
   *str = '\0';
 }
-
-
 
 // char x[20];
 // char *y = x;
@@ -200,4 +195,30 @@ String urlencode(String str) {
     // yield();
   }
   return encodedString;
+}
+
+int Xstrpos(const char* haystack, const char* needle) {
+  const char* p = strstr(haystack, needle);
+  if (p) return p - haystack;
+  return -1;
+}
+
+// https://stackoverflow.com/questions/2091825/strpos-in-c-how-does-it-work
+int strpos(const char* haystack, const char* needle, int offset = 0) {
+  char* p;
+  int len, pos;
+
+  len = strlen(haystack);
+  pos = 0;
+  if (offset < 0) {
+    if (len > INT_MAX || offset < -(int)len) pos = len + offset;
+  } else {
+    if (len <= INT_MAX && offset > len) return -1;
+    pos = offset;
+  }
+  p = strstr(haystack + pos, needle);
+  if (p != NULL && p - haystack <= INT_MAX)
+    return (int)(p - haystack);
+  else
+    return -1;
 }

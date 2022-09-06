@@ -4,6 +4,10 @@
 
 #include <Arduino.h>
 
+// https://stackoverflow.com/questions/2182002/convert-big-endian-to-little-endian-in-c-without-using-provided-func
+#define SWAP_UINT16(x) (((x) >> 8) | ((x) << 8))
+#define SWAP_UINT32(x) (((x) >> 24) | (((x) & 0x00FF0000) >> 8) | (((x) & 0x0000FF00) << 8) | ((x) << 24))
+
 
 String split(String s, char separator, int index);
 
@@ -36,4 +40,7 @@ unsigned char h2int(char c);
 String urldecode(String str);
 
 String urlencode(String str);
+
+//int strpos(const char *haystack, const char *needle);
+int strpos(const char *haystack, const char *needle, int offset);
 #endif
