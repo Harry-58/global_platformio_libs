@@ -3,7 +3,12 @@
 
 #include <Arduino.h>
 #include <PubSubClient.h>
-#include <WiFi.h>
+#ifdef ESP8266
+# include <ESP8266WiFi.h>
+#elif defined(ESP32)
+# include <WiFi.h>
+#endif
+
 #include <WiFiClient.h>
 
 class myMqtt : public PubSubClient {
@@ -23,12 +28,14 @@ class myMqtt : public PubSubClient {
 
   bool publish(                  String topic, String payload);
   bool publish(String baseTopic, String topic, String payload);
+  bool publish(String baseTopic, String topic, const char* payload);
 
   bool publish(                  String topic, String payload, boolean retained);
   bool publish(String baseTopic, String topic, String payload, boolean retained);
 
   bool publish(                  String topic, const uint8_t * payload, uint16_t plength);
   bool publish(String baseTopic, String topic, const uint8_t * payload, uint16_t plength);
+
 
   bool publish(                  String topic, const uint8_t * payload, uint16_t plength,  boolean retained);
   bool publish(String baseTopic, String topic, const uint8_t * payload, uint16_t plength,  boolean retained);
@@ -49,6 +56,7 @@ class myMqtt : public PubSubClient {
  private:
   Client* _client;
   String _baseTopic;
+  char   buf_topic[256];    //todo: Grösse im Constructor festlegen
 };
 
 #endif
