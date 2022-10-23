@@ -64,11 +64,11 @@ class Blink {
   }
 
   void setOnTime(uint32_t on) {
-    _OnTime = _onState;
+    _OnTime = on;
   }
 
   void setOffTime(uint32_t off) {
-    _OffTime = !_onState;
+    _OffTime = off;
   }
 
   void Update() {
