@@ -120,7 +120,7 @@ void loop(){
 
 #include <Arduino.h>
 
-#define DEBUG_EIN  //"Schalter" zum aktivieren von DEBUG-Ausgaben
+#define DEBUG__EIN  //"Schalter" zum aktivieren von DEBUG-Ausgaben
 #include <myDebug.h>
 
 
@@ -187,7 +187,7 @@ void Beeper::Update() {
   if (_beepZeiger > -1) {
     if ((_beepTableDo[_beepZeiger].frequenz + _beepTableDo[_beepZeiger].dauer) > 0) {  // nicht beepEnde
       if ((_beepZeiger == 0) || (_beepTimer > _beepTableDo[_beepZeiger - 1].dauer)) {
-        DEBUG_PRINTF("Beep-%i %i/%i\n", _beepZeiger, _beepTableDo[_beepZeiger].frequenz, _beepTableDo[_beepZeiger].dauer);
+        DEBUG__PRINTF("Beep-%i %i/%i\n", _beepZeiger, _beepTableDo[_beepZeiger].frequenz, _beepTableDo[_beepZeiger].dauer);
         if (_beepTableDo[_beepZeiger].frequenz > 0 /*beepPause*/) tone(_pin, _beepTableDo[_beepZeiger].frequenz, _beepTableDo[_beepZeiger].dauer);
         _beepZeiger++;
         _beepTimer = 0;
@@ -204,13 +204,13 @@ void Beeper::beep(const uint16_t frequenz, const uint32_t dauer, const bool wait
 }
 
 void Beeper::beep(beepTable_t beepTable[]) {
-  DEBUG_PRINT("Beeper ");
+  DEBUG__PRINT("Beeper ");
   int i = 0;
   while (beepTable[i].frequenz + beepTable[i].dauer > 0) {  // nicht beepEnde
     if (beepTable[i].frequenz > 0 /*beepPause*/) tone(_pin, beepTable[i].frequenz, beepTable[i].dauer);
-    DEBUG(Serial << i << "  " << beepTable[i].frequenz << "/" << beepTable[i].dauer << "  ";)
+    DEBUG__(Serial << i << "  " << beepTable[i].frequenz << "/" << beepTable[i].dauer << "  ";)
     delay(beepTable[i].dauer);
     i++;
   }
-  DEBUG_PRINTLN("");
+  DEBUG__PRINTLN("");
 }
