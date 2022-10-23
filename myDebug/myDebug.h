@@ -20,7 +20,7 @@
 *
  */
 
-   #ifdef DEBUG_EIN
+   #ifdef DEBUG__EIN
       #include <Streaming.h>
       #ifndef DEBUG__ZIEL
         #define DEBUG__ZIEL Serial   // Standardziel für Debugmeldungen
@@ -38,7 +38,7 @@
         #if defined(__AVR__)       // Arduino hat kein printf deshalb über snprintf mit Buffer
                                   // https://www.e-tinkers.com/2020/01/do-you-know-arduino-sprintf-and-floating-point/
           extern char myDebugBuffer[_MYDEBUGPRINTFBUFFER_SIZE];
-          #define DEBUG_PRINTF(...) {  snprintf(myDebugBuffer,sizeof(myDebugBuffer),__VA_ARGS__); DEBUG_ZIEL.print(myDebugBuffer);}
+          #define DEBUG__PRINTF(...) {  snprintf(myDebugBuffer,sizeof(myDebugBuffer),__VA_ARGS__); DEBUG__ZIEL.print(myDebugBuffer);}
         #else
           #define DEBUG__PRINTF(...) DEBUG__ZIEL.printf( __VA_ARGS__ )
         #endif
