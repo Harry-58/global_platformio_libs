@@ -83,12 +83,12 @@ bool myMqtt::publish(String baseTopic, String topic, const uint8_t* payload, uin
       lTopic.remove(lTopic.length() - 1);  // dann letztes Zeichen entfernen
     }
   }
-  DEBUG_PRINTF(("publish: " + lTopic + " ->%s<-").c_str(), payload);
+  DEBUG__PRINTF(("publish: " + lTopic + " ->%s<-").c_str(), payload);
   if (!PubSubClient::publish(lTopic.c_str(), payload, plength, retained)) {
-    DEBUG_PRINTLN(" ... Error");
+    DEBUG__PRINTLN(" ... Error");
     return false;
   }
-  DEBUG_PRINTLN(" ... OK");
+  DEBUG__PRINTLN(" ... OK");
   return true;
 }
 
@@ -107,11 +107,11 @@ bool myMqtt::subscribe(String topic, uint8_t qos) {
   return this->subscribe(_baseTopic, topic, qos);
 }
 bool myMqtt::subscribe(String baseTopic, String topic, uint8_t qos) {
-  DEBUG_PRINTF(("subscribe: " + baseTopic + "/" + topic).c_str());
+  DEBUG__PRINTF(("subscribe: " + baseTopic + "/" + topic).c_str());
   if (!PubSubClient::subscribe((baseTopic + "/" + topic).c_str()), qos) {
-    DEBUG_PRINTLN(" ... Error");
+    DEBUG__PRINTLN(" ... Error");
     return false;
   }
-  DEBUG_PRINTLN(" ... OK");
+  DEBUG__PRINTLN(" ... OK");
   return true;
 }
