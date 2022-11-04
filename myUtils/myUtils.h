@@ -43,4 +43,19 @@ String urlencode(String str);
 
 //int strpos(const char *haystack, const char *needle);
 int strpos(const char *haystack, const char *needle, int offset);
+
+
+// Hilfsroutine weil Arduino kein Serial.printf hat
+//  https://www.e-tinkers.com/2020/01/do-you-know-arduino-sprintf-and-floating-point/
+//  https://en.cppreference.com/w/cpp/language/parameter_pack
+//info: geht nur wenn im Headerfile. Prüfen warum nicht im cpp ????
+template <typename... argsType>
+void Serial_printf(const char* str, argsType... args) {
+  int len = snprintf(NULL, 0, str, args...);
+  if (len) {
+    char buff[len + 1];
+    snprintf(buff, len + 1, str, args...);
+    Serial.print(buff);
+  }
+}
 #endif
