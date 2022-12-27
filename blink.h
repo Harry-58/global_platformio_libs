@@ -1,6 +1,6 @@
 /***********************************
-blink led1(Pin, OnTime, OffTime <HIGH>);  // Constructor für led1  LED leuchtet bei HIGH (default)  (ist gegen GND geschaltet)
-blink led2(13, 350, 350, LOW);            // Constructor für led2  LED leuchtet die LOW             (ist gegen VCC geschaltet)
+blink led1(Pin, OnTime, OffTime, <HIGH>);  // Constructor für led1  LED leuchtet bei HIGH (default)  (ist gegen GND geschaltet)
+blink led2(13, 350, 350, LOW);             // Constructor für led2  LED leuchtet bei LOW             (ist gegen VCC geschaltet)
 
 led1.setOnOffTime(50, 500);      // LED-On/Off Zeiten ändern
 led1.setOnTime(100);             // LED-On Zeit ändern
@@ -17,7 +17,7 @@ void loop()
 {
   ...
   led1.Update();                 // muß zyklisch für jede LED aufgerufen werden,
-  led2.Update();                 // damit mit jedee LED mit den definierten ON/OFF-Zeiten blinkt
+  led2.Update();                 // damit jede LED mit den definierten ON/OFF-Zeiten blinkt
   ...
 }
 ************************************/
