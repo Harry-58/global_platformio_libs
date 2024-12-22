@@ -46,21 +46,24 @@
       #ifndef DEBUG__INFO
         #define DEBUG__INFO(x)     DEBUG__ZIEL <<"**** F:"<<__FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl   // Funtionsname, Zeilennummer und Parameter anzeigen
       #endif
-      #ifndef DEBUG__VAR
-        #define DEBUG__VAR(x)      DEBUG__ZIEL << (#x) << " >" <<(x) << "<" << endl                               // Variablenname und Wert anzeigen
+      #ifndef DEBUG__VAR    // Variablenname und Wert anzeigen
+        #ifdef ESP8266      // 8266 braucht Sonderbehandlung
+          #define DEBUG__VAR(x)   DEBUG__ZIEL << (#x);  DEBUG__ZIEL.print(" >"); DEBUG__ZIEL.print(x); DEBUG__ZIEL.println("<");
+        #else
+          #define DEBUG__VAR(x)    DEBUG__ZIEL << (#x) << " >" <<(x) << "<" << endl
+        #endif
       #endif
       #ifndef DEBUG__SHOW
-        #define DEBUG__SHOW(x)                   (#x) << " >" <<(x) << "<"                                       // Variablenname und Wert innerhalb anderen (Debug)-Prints anzuzeigen
+        #define DEBUG__SHOW(x)      (#x) << " >" <<(x) << "<"       // Variablenname und Wert innerhalb anderen (Debug)-Prints anzeigen
       #endif
-        #ifndef ESP32
-          #define ARDUHAL_LOG_COLOR_E
-          #define ARDUHAL_LOG_COLOR_W
-          #define ARDUHAL_LOG_COLOR_I
-          #define ARDUHAL_LOG_COLOR_D
-          #define ARDUHAL_LOG_COLOR_V
-          #define ARDUHAL_LOG_RESET_COLOR
-          #define ARDUHAL_LOG_FORMAT(letter, format)  ARDUHAL_LOG_COLOR_ ## letter "[" #letter "][%s:%u] %s(): " format ARDUHAL_LOG_RESET_COLOR "\r\n", __FILE__, __LINE__, __FUNCTION__
-
+      #ifndef ESP32
+        #define ARDUHAL_LOG_COLOR_E
+        #define ARDUHAL_LOG_COLOR_W
+        #define ARDUHAL_LOG_COLOR_I
+        #define ARDUHAL_LOG_COLOR_D
+        #define ARDUHAL_LOG_COLOR_V
+        #define ARDUHAL_LOG_RESET_COLOR
+        #define ARDUHAL_LOG_FORMAT(letter, format)  ARDUHAL_LOG_COLOR_ ## letter "[" #letter "][%s:%u] %s(): " format ARDUHAL_LOG_RESET_COLOR "\r\n", __FILE__, __LINE__, __FUNCTION__
       #endif
       #ifndef LOG__E
         #define LOG__E(format, ...)DEBUG_PRINTF(ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
