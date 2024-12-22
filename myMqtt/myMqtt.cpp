@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 
-#define DEBUG_EIN  //"Schalter" zum aktivieren von DEBUG-Ausgaben
+//#define DEBUG__EIN  //"Schalter" zum aktivieren von DEBUG-Ausgaben
 #include <myDebug.h>
 
 

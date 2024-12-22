@@ -2,6 +2,7 @@
 #include <beepTable.h>
 #include <beeper.h>
 
+
 beepTable_t myBeepTable = {
     // freq, dauer(ms)
     {440, 300},          // Frequenz in Hertz
@@ -122,6 +123,7 @@ void loop(){
 
 #define DEBUG__EIN  //"Schalter" zum aktivieren von DEBUG-Ausgaben
 #include <myDebug.h>
+#include <elapsedMillis.h>
 
 
 struct beep_t {
@@ -135,19 +137,19 @@ typedef const beep_t beepTable_t;
 
 beepTable_t beepOne[]= {
     // freq, dauer(ms)
-    {NOTE_F6, 300},
+    {2000, 200},
     {beepEnde}};
 
 beepTable_t beepTwo[] = {
     // freq, dauer(ms)
-    {3000, 200},
-    {beepPause( 300 )},
-    {1000, 200},
+    {2000, 100},
+    {beepPause( 200 )},
+    {1000, 100},
     {beepEnde}};
 
 beepTable_t beepThree[] = {
     // freq, dauer(ms)
-    {3000, 100},
+    {2000, 100},
     {beepPause(200)},
     {1000, 100},
     {beepPause(200)},
@@ -160,8 +162,8 @@ class Beeper {
   Beeper(const int8_t pin);  // Constructor
 
   void beep(uint16_t frequenz, uint32_t dauer, bool wait = false);  // einzelnen Ton ausgeben ohne/mit delay
-  void beep(beepTable_t beepTable[]);                              // Tonfolge ausgeben mit delay
-  void start(beepTable_t beepTable[]);                                   // Tonfolge ohne delay vorbereiten, die dann über loop ausgegeben wird
+  void beep(beepTable_t beepTable[]);                               // Tonfolge ausgeben mit delay
+  void start(beepTable_t beepTable[]);                              // Tonfolge ohne delay vorbereiten, die dann über loop ausgegeben wird
   void Update();                                                    // Tonfolge ohne delay ausführen
 
  private:

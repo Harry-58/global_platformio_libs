@@ -56,7 +56,7 @@ class myMqtt : public PubSubClient {
  private:
   Client* _client;
   String _baseTopic;
-  char   buf_topic[256];    //todo: Grösse im Constructor festlegen
+  char   buf_topic[512];    //todo: Grösse im Constructor festlegen
 };
 
 #endif

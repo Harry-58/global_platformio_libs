@@ -45,6 +45,8 @@ String urlencode(String str);
 int strpos(const char *haystack, const char *needle, int offset);
 
 
+boolean sommerZeit_EU(int year, byte month, byte day, byte hour, byte tzHours);
+
 // Hilfsroutine weil Arduino kein Serial.printf hat
 //  https://www.e-tinkers.com/2020/01/do-you-know-arduino-sprintf-and-floating-point/
 //  https://en.cppreference.com/w/cpp/language/parameter_pack
@@ -58,4 +60,7 @@ void Serial_printf(const char* str, argsType... args) {
     Serial.print(buff);
   }
 }
+
+
+
 #endif
