@@ -61,6 +61,29 @@ void Serial_printf(const char* str, argsType... args) {
   }
 }
 
+/*
+char *str[] = {"this is test", "a", "b", "c", "d"};
 
+    if (pos=in_array(str, 5, "c", strcmp) >=0 )
+        printf("yes POS:%i\n",pos);
+    else
+        printf("no\n");
+    }
+
+*/
+
+/* https://stackoverflow.com/questions/13814167/c-function-like-in-array-in-php
+typedef int (*cmpfunc)(void *, void *);
+
+int in_array(void *array[], int size, void *lookfor, cmpfunc cmp)
+{
+    int i;
+
+    for (i = 0; i < size; i++)
+        if (cmp(lookfor, array[i]) == 0)
+            return i;
+    return -1;
+}
+*/
 
 #endif
