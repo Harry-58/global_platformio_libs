@@ -6,6 +6,8 @@
 #define TODO(x)       DO_PRAGMA(message ("*** TODO *** " #x))
 #define MESSAGE(x)    DO_PRAGMA(message (#x))
 
+#define TO_STR(x) #x
+
 
 #define WITHIN(N,L,H)       ((N) >= (L) && (N) <= (H))
 #define NUMERIC(a)          WITHIN(a, '0', '9')
