@@ -44,7 +44,9 @@
         #endif
       #endif
       #ifndef DEBUG__INFO
-        #define DEBUG__INFO(x)     DEBUG__ZIEL <<"**** F:"<<__FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl   // Funtionsname, Zeilennummer und Parameter anzeigen
+        #define ___FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+        //#define DEBUG__INFO(x)     DEBUG__ZIEL <<"**** "<< __FILE__ << " F:"<<__FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl   // Dateiname, Funtionsname, Zeilennummer und Parameter anzeigen
+        #define DEBUG__INFO(x)     DEBUG__ZIEL <<"**** "<< ___FILENAME__ << " F:"<<__PRETTY_FUNCTION__ <<" L:"<< __LINE__ <<" # "<< x << endl   // Funtionsname, Zeilennummer und Parameter anzeigen
       #endif
       #ifndef DEBUG__VAR    // Variablenname und Wert anzeigen
         #ifdef ESP8266      // 8266 braucht Sonderbehandlung
